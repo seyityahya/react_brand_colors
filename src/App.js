@@ -1,8 +1,11 @@
 import './App.css';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
-    <h3>Test</h3>
+    <>  
+    <Sidebar/>
+    </>
   );
 }
 
