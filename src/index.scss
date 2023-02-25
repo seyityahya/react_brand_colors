@@ -65,6 +65,17 @@ body {
   }
 }
 
+.copied {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bgColor);
+  color: var(--textColor);
+  padding: 15px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
 .content {
   flex: 1;
   overflow: auto;
@@ -107,9 +118,6 @@ body {
       background: #fff;
       padding: 15px;
       margin-bottom: 10px;
-      &.selected {
-        border-color: red;
-      }
       h5 {
         font-size: 18px;
         margin-bottom: 10px;
@@ -118,6 +126,7 @@ body {
       &-colors {
         display: flex;
         span {
+          cursor: pointer;
           background: var(--bgColor);
           height: 40px;
           display: flex;
@@ -128,6 +137,15 @@ body {
           color: var(--textColor);
           text-indent: -9999px;
           width: 60px;
+        }
+      }
+      &.selected {
+        border-color: red;
+        .brand-colors {
+          span {
+            flex: 1;
+            text-indent: 0;
+          }
         }
       }
     }
