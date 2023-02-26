@@ -8,13 +8,15 @@ import Copied from "./components/Copied";
 
 function App() {
   const brandsArray = [];
+
   Object.keys(BrandsData).map((key) => {
     brandsArray.push(BrandsData[key]);
   });
 
-  const [brands] = useState(brandsArray);
+  const [brands, setBrands] = useState(brandsArray);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (copied) {
@@ -24,11 +26,19 @@ function App() {
     }
   }, [copied]);
 
+  useEffect(() => {
+    setBrands(
+      brandsArray.filter((brand) => brand.title.toLowerCase().includes(search))
+    );
+  }, [search]);
+
   const data = {
     brands,
     selectedBrands,
+    search,
     setSelectedBrands,
     setCopied,
+    setSearch,
   };
 
   return (

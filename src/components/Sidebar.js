@@ -13,7 +13,7 @@ function Sidebar() {
     <>
       <aside className="sidebar">
         <div className="logo">
-          <a>
+          <a href="/#">
             Brand<b>Colors</b>
           </a>
         </div>
@@ -24,7 +24,9 @@ function Sidebar() {
         <nav className="menu">
           <ul>
             <li>
-              <a onClick={toggleModal}>About BrandColors</a>
+              <a href="/#" onClick={toggleModal}>
+                About BrandColors
+              </a>
             </li>
           </ul>
         </nav>
