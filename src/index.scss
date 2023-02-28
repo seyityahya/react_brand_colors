@@ -84,7 +84,10 @@ body {
     border-bottom: 1px solid #ccc;
     display: flex;
     position: sticky;
+    justify-content: space-between;
     top: 0;
+    background: #fff;
+    align-items: center;
     .search {
       flex: 1;
       position: relative;
@@ -107,6 +110,19 @@ body {
         height: 100%;
         font-size: 16px;
         padding: 0 20px 0 60px;
+      }
+    }
+    .download {
+      padding-right: 25px;
+      .selected {
+        font-size: 14px;
+        font-weight: 500;
+        color: #999;
+        display: flex;
+        align-items: center;
+        button {
+          background: transparent;
+        }
       }
     }
   }
