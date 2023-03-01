@@ -12,7 +12,7 @@ function Content() {
     <main className="content">
       <header className="header">
         <Search />
-        {selectedBrands.length && <Dowload />}
+        {selectedBrands.length !== 0 && <Dowload />}
       </header>
       <section className="brands">
         {brands.map((brand) => (
