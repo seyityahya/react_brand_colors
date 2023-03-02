@@ -1,9 +1,29 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import MainContext from "../MainContext";
 import { GrLink, GrDownload, GrClose } from "react-icons/gr";
 
 function Dowload() {
-  const { selectedBrands, setSelectedBrands } = useContext(MainContext);
+  const { selectedBrands, brands, setSelectedBrands } = useContext(MainContext);
+  const { downloadUrl, setDownloadUrl } = useState();
+
+  useEffect(() => {
+    if (selectedBrands.length > 0) {
+      let output = "";
+      selectedBrands.map((slug) => {
+        let brand = brands.find((brand) => brand.slug === slug);
+        brand.colors.map((color, key) => {
+          output += `--${slug}-${key}: #${color};\n`;
+        });
+      });
+      const blob = new Blob([output]);
+      const url = URL.createObjectURL(blob);
+      setDownloadUrl(url);
+      return () => {
+        URL.revokeObjectURL(url);
+        setDownloadUrl("");
+      };
+    }
+  }, [selectedBrands]);
 
   const getLink = () => {
     prompt(
@@ -15,7 +35,7 @@ function Dowload() {
   return (
     <div className="download">
       <div className="actions">
-        <a href="/#">
+        <a download="test.css" href={downloadUrl}>
           <GrDownload />
         </a>
         <button onClick={getLink}>
