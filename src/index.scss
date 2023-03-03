@@ -133,6 +133,16 @@ body {
             width: 15px;
           }
         }
+        select {
+          margin-right: 7px;
+          height: 30px;
+          padding: 0 15px;
+          background: #eee;
+          border-radius: 5px;
+          appearance: none;
+          text-align: center;
+          cursor: pointer;
+        }
       }
       .selected {
         font-size: 14px;

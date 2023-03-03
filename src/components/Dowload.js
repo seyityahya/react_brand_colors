@@ -4,17 +4,42 @@ import { GrLink, GrDownload, GrClose } from "react-icons/gr";
 
 function Dowload() {
   const { selectedBrands, brands, setSelectedBrands } = useContext(MainContext);
-  const { downloadUrl, setDownloadUrl } = useState();
+  const [downloadUrl, setDownloadUrl] = useState();
+  const [cssMethod, setCssMethod] = useState();
 
   useEffect(() => {
     if (selectedBrands.length > 0) {
       let output = "";
-      selectedBrands.map((slug) => {
-        let brand = brands.find((brand) => brand.slug === slug);
-        brand.colors.map((color, key) => {
-          output += `--${slug}-${key}: #${color};\n`;
-        });
-      });
+
+      switch (cssMethod) {
+        case "css":
+          selectedBrands.map((slug) => {
+            let brand = brands.find((brand) => brand.slug === slug);
+            brand.colors.map((color, key) => {
+              output += `--${slug}-${key}: #${color};\n`;
+            });
+          });
+          break;
+
+        case "scss":
+          selectedBrands.map((slug) => {
+            let brand = brands.find((brand) => brand.slug === slug);
+            brand.colors.map((color, key) => {
+              output += `\$${slug}-${key}: #${color};\n`;
+            });
+          });
+          break;
+
+        case "less":
+          selectedBrands.map((slug) => {
+            let brand = brands.find((brand) => brand.slug === slug);
+            brand.colors.map((color, key) => {
+              output += `@${slug}-${key}: #${color};\n`;
+            });
+          });
+          break;
+      }
+
       const blob = new Blob([output]);
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
@@ -23,7 +48,7 @@ function Dowload() {
         setDownloadUrl("");
       };
     }
-  }, [selectedBrands]);
+  }, [selectedBrands, cssMethod]);
 
   const getLink = () => {
     prompt(
@@ -35,9 +60,15 @@ function Dowload() {
   return (
     <div className="download">
       <div className="actions">
-        <a download="test.css" href={downloadUrl}>
+        <select onChange={(e) => setCssMethod(e.target.value)}>
+          <option value="css">CSS</option>
+          <option value="scss">SCSS</option>
+          <option value="less">LESS</option>
+        </select>
+        <a download={`brands.${cssMethod}`} href={downloadUrl}>
           <GrDownload />
         </a>
+
         <button onClick={getLink}>
           <GrLink />
         </button>
