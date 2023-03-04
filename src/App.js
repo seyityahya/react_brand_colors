@@ -5,6 +5,9 @@ import Content from "./components/Content";
 import Sidebar from "./components/Sidebar";
 import BrandsData from "./brands.json";
 import Copied from "./components/Copied";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Collection from "./components/Collection";
+import { forceCheck } from "react-lazyload";
 
 function App() {
   const brandsArray = [];
@@ -32,6 +35,10 @@ function App() {
     );
   }, [search]);
 
+  useEffect(() => {
+    forceCheck();
+  }, [brands]);
+
   const data = {
     brands,
     selectedBrands,
@@ -46,7 +53,12 @@ function App() {
       <MainContext.Provider value={data}>
         {copied && <Copied color={copied} />}
         <Sidebar />
-        <Content />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Content />} exact />
+            <Route path="/collection/:slugs" element={<Collection />} />
+          </Routes>
+        </BrowserRouter>
       </MainContext.Provider>
     </>
   );
